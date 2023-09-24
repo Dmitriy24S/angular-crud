@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
+import { EmployeeService } from '../services/employee.service';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-emp-add-edit',
@@ -22,7 +24,9 @@ export class EmpAddEditComponent {
   // service variable
   constructor(
     private _fb: FormBuilder,
-    private _dateAdapter: DateAdapter<Date>
+    private _dateAdapter: DateAdapter<Date>,
+    private _empService: EmployeeService,
+    private _dialogRef: DialogRef<EmpAddEditComponent>
   ) {
     this.empForm = this._fb.group({
       firstName: '1',
@@ -49,8 +53,20 @@ export class EmpAddEditComponent {
       const formattedDate = `${
         dateObj.getMonth() + 1
       }/${dateObj.getDate()}/${dateObj.getFullYear()}`;
-      // this.empForm.get('dob')?.setValue(formattedDate);
+      // this.empForm.get('dob')?.setValue(formattedDate); // breaks input, because need date instead of string
       console.log('2', { ...this.empForm.value, dob: formattedDate });
+      const data = { ...this.empForm.value, dob: formattedDate };
+      this._empService.addEmployee(data).subscribe({
+        next: (value: any) => {
+          //on success
+          // todo snackbar
+          alert('Employee added');
+          this._dialogRef.close();
+        },
+        error: (err: any) => {
+          console.log('error', err);
+        },
+      });
     }
   }
 }
