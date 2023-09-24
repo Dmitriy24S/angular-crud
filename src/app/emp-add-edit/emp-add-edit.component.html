@@ -10,99 +10,142 @@
   </button>
 </div>
 
-<div mat-dialog-content class="content">
-  <div class="row">
-    <mat-form-field appearance="outline">
-      <mat-label>First name</mat-label>
-      <input matInput placeholder="ex. John" type="text" cdkFocusInitial />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Last name</mat-label>
-      <input matInput placeholder="ex. Doe" type="text" />
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <!-- TODO why chrome suggest password genearte 2 fields? -->
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="ex. john.doe@mail.com" type="email" />
-    </mat-form-field>
-    <!-- DOB -->
-    <mat-form-field class="dob-ield" appearance="outline">
-      <mat-label>Choose a date of birth</mat-label>
-      <input matInput [matDatepicker]="datepicker" />
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle
-        matIconSuffix
-        [for]="datepicker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #datepicker>
-        <mat-datepicker-actions>
-          <button mat-button matDatepickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDatepickerApply>
-            Apply
-          </button>
-        </mat-datepicker-actions>
-      </mat-datepicker>
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <div class="radio-field">
-      <label id="gender-label">Gender</label>
-      <mat-radio-group
-        aria-label="Select gender"
-        aria-labelledby="gender-label"
-      >
-        <mat-radio-button value="male">Male</mat-radio-button>
-        <mat-radio-button value="female">Female</mat-radio-button>
-        <mat-radio-button value="other">Other</mat-radio-button>
-      </mat-radio-group>
+<!-- bind formGroup with empForm-->
+<form [formGroup]="empForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content class="content">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input
+          matInput
+          placeholder="ex. John"
+          type="text"
+          cdkFocusInitial
+          formControlName="firstName"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Last name</mat-label>
+        <input
+          matInput
+          placeholder="ex. Doe"
+          type="text"
+          formControlName="lastName"
+        />
+      </mat-form-field>
     </div>
-    <!-- <mat-form-field appearance="outline">
+
+    <div class="row">
+      <!-- TODO why chrome suggest password genearte 2 fields? -->
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          placeholder="ex. john.doe@mail.com"
+          type="email"
+          formControlName="email"
+        />
+      </mat-form-field>
+      <!-- DOB -->
+      <mat-form-field class="dob-ield" appearance="outline">
+        <mat-label>Choose a date of birth</mat-label>
+        <!-- <input matInput [matDatepicker]="datepicker" formControlName="dob" /> -->
+        <input
+          matInput
+          [matDatepicker]="datepicker"
+          formControlName="dob"
+          [value]="formattedDate"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="datepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datepicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>
+              Apply
+            </button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <div class="radio-field">
+        <label id="gender-label">Gender</label>
+        <mat-radio-group
+          aria-label="Select gender"
+          aria-labelledby="gender-label"
+          formControlName="gender"
+        >
+          <mat-radio-button value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+          <mat-radio-button value="other">Other</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <!-- <mat-form-field appearance="outline">
       <mat-label>Gender</mat-label>
       <mat-select>
         <mat-option value="male">Male</mat-option>
         <mat-option value="female">Female</mat-option>
       </mat-select>
     </mat-form-field> -->
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Education</mat-label>
+        <mat-select formControlName="education">
+          <!-- <mat-option value="University">University</mat-option> -->
+          <!-- <mat-option value="Bootcamp">Bootcamp</mat-option> -->
+          <mat-option *ngFor="let val of education" [value]="val">{{
+            val
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Company</mat-label>
+        <input
+          matInput
+          placeholder="ex. Google"
+          type="text"
+          formControlName="company"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Experience</mat-label>
+        <input
+          matInput
+          placeholder="ex. 4"
+          type="number"
+          min="0"
+          formControlName="experience"
+        />
+        <mat-hint>Years</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Package</mat-label>
+        <input
+          matInput
+          placeholder="ex. 12"
+          type="number"
+          min="0"
+          formControlName="package"
+        />
+        <mat-hint>$ USD</mat-hint>
+      </mat-form-field>
+    </div>
   </div>
 
-  <div class="row">
-    <mat-form-field appearance="outline">
-      <mat-label>Education</mat-label>
-      <mat-select>
-        <!-- <mat-option value="University">University</mat-option> -->
-        <!-- <mat-option value="Bootcamp">Bootcamp</mat-option> -->
-        <mat-option *ngFor="let val of education" [value]="val">{{
-          val
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Company</mat-label>
-      <input matInput placeholder="ex. Google" type="text" />
-    </mat-form-field>
+  <!-- <div mat-dialog-actions align="end"> -->
+  <!-- <div mat-dialog-actions align="center"> -->
+  <div mat-dialog-actions class="actions">
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Save</button>
   </div>
-
-  <div class="row">
-    <mat-form-field appearance="outline">
-      <mat-label>Experience</mat-label>
-      <input matInput placeholder="ex. 4" type="number" min="0" />
-      <mat-hint>Years</mat-hint>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Package</mat-label>
-      <input matInput placeholder="ex. 12" type="number" min="0" />
-      <mat-hint>$ USD</mat-hint>
-    </mat-form-field>
-  </div>
-</div>
-
-<!-- <div mat-dialog-actions align="end"> -->
-<!-- <div mat-dialog-actions align="center"> -->
-<div mat-dialog-actions class="actions">
-  <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="primary">Save</button>
-</div>
+</form>
