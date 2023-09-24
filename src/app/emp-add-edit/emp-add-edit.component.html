@@ -1,11 +1,20 @@
-<div mat-dialog-title>
+<div mat-dialog-title class="title">
   <h1>Employee Form</h1>
+  <button
+    mat-icon-button
+    aria-label="close dialog"
+    mat-dialog-close
+    class="dialog-close-btn"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
 </div>
+
 <div mat-dialog-content class="content">
   <div class="row">
     <mat-form-field appearance="outline">
       <mat-label>First name</mat-label>
-      <input matInput placeholder="ex. John" type="text" />
+      <input matInput placeholder="ex. John" type="text" cdkFocusInitial />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Last name</mat-label>
@@ -94,6 +103,6 @@
 <!-- <div mat-dialog-actions align="end"> -->
 <!-- <div mat-dialog-actions align="center"> -->
 <div mat-dialog-actions class="actions">
-  <button mat-raised-button>Cancel</button>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
   <button mat-raised-button color="primary">Save</button>
 </div>

@@ -15,7 +15,17 @@ export class AppComponent {
     //
   }
 
+  // openDialog(): void {
+  // let dialogRef = this._dialog.open(DialogOverviewExampleDialog, {
+  // width: '450px',
+  // data: { name: this.name, animal: this.animal },
+  // autoFocus: false,
+  // });
+  // }
+
   openAddEditEmpForm() {
-    this._dialog.open(EmpAddEditComponent);
+    this._dialog.open(EmpAddEditComponent, {
+      // autoFocus: false,
+    });
   }
 }

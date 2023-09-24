@@ -1,3 +1,18 @@
+.title {
+  display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  h1 {
+    // width: fit-content;
+    margin-top: 15px;
+  }
+  .dialog-close-btn {
+    margin-left: auto;
+    // margin-bottom: 5px;
+    align-self: center;
+  }
+}
+
 .content {
   padding-top: 10px;
 }
