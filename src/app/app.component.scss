@@ -1,3 +1,36 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.main-container {
+  padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1248px;
+}
+
+.table-container {
+  overflow: scroll;
+}
+
+// .mat-column-email,
+// .cdk-column-email {
+//   max-width: 30px;
+// }
+
+.cdk-column-dob {
+  min-width: 140px;
+}
