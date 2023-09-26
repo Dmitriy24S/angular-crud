@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
     'experience',
     'education',
     'package',
+    'action',
   ];
   dataSource!: MatTableDataSource<any>;
 
@@ -66,6 +67,15 @@ export class AppComponent implements OnInit {
     });
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   getEmployeeList() {
     // returns observable, so subscribe and handle it
     this._empService.getEmployeeList().subscribe({
@@ -83,12 +93,14 @@ export class AppComponent implements OnInit {
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+  deleteEmployee(id: number) {
+    this._empService.deleteEmployee(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        alert('Employee deleted');
+        this.getEmployeeList(); // refresh the list
+      },
+      error: console.log,
+    });
   }
 }

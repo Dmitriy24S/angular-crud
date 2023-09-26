@@ -34,3 +34,11 @@ th {
 .cdk-column-dob {
   min-width: 140px;
 }
+
+.cdk-column-action {
+  min-width: 135px;
+  // not work?:
+  // .mat-sort-header-container {
+  //   justify-content: center;
+  // }
+}
