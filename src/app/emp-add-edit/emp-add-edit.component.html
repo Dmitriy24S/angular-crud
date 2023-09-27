@@ -147,6 +147,8 @@
   <!-- <div mat-dialog-actions align="center"> -->
   <div mat-dialog-actions class="actions">
     <button mat-raised-button mat-dialog-close type="button">Cancel</button>
-    <button mat-raised-button color="primary" type="submit">Save</button>
+    <button mat-raised-button color="primary" type="submit">
+      {{ data ? "Update" : "Add" }}
+    </button>
   </div>
 </form>

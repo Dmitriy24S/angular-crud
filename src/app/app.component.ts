@@ -61,10 +61,34 @@ export class AppComponent implements OnInit {
   // }
 
   // methods:
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   openAddEditEmpForm() {
     // store reference, so can update list on close(?). i.e after submit add employee
     const dialogRef = this._dialog.open(EmpAddEditComponent, {
       // autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        console.log('dialogRef afterClosed val', val);
+        // if true return list
+        if (val) {
+          this.getEmployeeList();
+        }
+      },
+    });
+  }
+
+  openEditForm(data: any) {
+    const dialogRef = this._dialog.open(EmpAddEditComponent, {
+      data,
     });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
@@ -74,15 +98,6 @@ export class AppComponent implements OnInit {
         }
       },
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   getEmployeeList() {
