@@ -62,8 +62,17 @@ export class AppComponent implements OnInit {
 
   // methods:
   openAddEditEmpForm() {
-    this._dialog.open(EmpAddEditComponent, {
+    // store reference, so can update list on close(?). i.e after submit add employee
+    const dialogRef = this._dialog.open(EmpAddEditComponent, {
       // autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        // if true return list
+        if (val) {
+          this.getEmployeeList();
+        }
+      },
     });
   }
 

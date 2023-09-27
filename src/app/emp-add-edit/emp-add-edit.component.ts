@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { EmployeeService } from '../services/employee.service';
-import { DialogRef } from '@angular/cdk/dialog';
+// import { DialogRef } from '@angular/cdk/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-emp-add-edit',
@@ -26,7 +27,8 @@ export class EmpAddEditComponent {
     private _fb: FormBuilder,
     private _dateAdapter: DateAdapter<Date>,
     private _empService: EmployeeService,
-    private _dialogRef: DialogRef<EmpAddEditComponent>
+    // private _dialogRef: DialogRef<EmpAddEditComponent>
+    private _dialogRef: MatDialogRef<EmpAddEditComponent>
   ) {
     this.empForm = this._fb.group({
       firstName: '1',
@@ -61,7 +63,8 @@ export class EmpAddEditComponent {
           //on success
           // todo snackbar
           alert('Employee added');
-          this._dialogRef.close();
+          // this._dialogRef.close();
+          this._dialogRef.close(true); // pass true for reference
         },
         error: (err: any) => {
           console.log('error', err);
