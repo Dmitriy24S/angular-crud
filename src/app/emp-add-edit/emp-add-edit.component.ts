@@ -4,6 +4,7 @@ import { DateAdapter } from '@angular/material/core';
 import { EmployeeService } from '../services/employee.service';
 // import { DialogRef } from '@angular/cdk/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CoreService } from '../core/core.service';
 
 @Component({
   selector: 'app-emp-add-edit',
@@ -31,7 +32,8 @@ export class EmpAddEditComponent implements OnInit {
     private _dialogRef: MatDialogRef<EmpAddEditComponent>,
     // @Inject(MAT_DIALOG_DATA) private data: any
     // public to use inside template
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _coreService: CoreService
   ) {
     this.empForm = this._fb.group({
       firstName: '1',
@@ -81,8 +83,8 @@ export class EmpAddEditComponent implements OnInit {
         this._empService.updateEmployee(data).subscribe({
           next: (value: any) => {
             // on success
-            // todo snackbar
-            alert('Employee updated');
+            // alert('Employee updated');
+            this._coreService.openSnackBar('Employee updated', 'OK');
             this._dialogRef.close(true); // pass true for reference
           },
           error: (err: any) => {
@@ -102,8 +104,8 @@ export class EmpAddEditComponent implements OnInit {
         this._empService.addEmployee(data).subscribe({
           next: (value: any) => {
             // on success
-            // todo snackbar
-            alert('Employee added');
+            // alert('Employee added');
+            this._coreService.openSnackBar('Employee added', 'OK');
             // this._dialogRef.close();
             this._dialogRef.close(true); // pass true for reference
           },
