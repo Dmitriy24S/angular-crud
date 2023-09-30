@@ -6,6 +6,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { CoreService } from './core/core.service';
+import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -128,6 +129,18 @@ export class AppComponent implements OnInit {
         this.getEmployeeList(); // refresh the list
       },
       error: console.log,
+    });
+  }
+
+  openDeleteDialog(id: number): void {
+    const dialogRef = this._dialog.open(DeleteConfirmationDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // User confirmed deletion, implement your delete logic here
+        console.log('hello');
+        this.deleteEmployee(id);
+      }
     });
   }
 }

@@ -1,0 +1,16 @@
+.title {
+  display: flex;
+  h1 {
+    margin-top: 15px;
+  }
+  .dialog-close-btn {
+    margin-left: auto;
+    align-self: center;
+  }
+}
+
+.actions {
+  button {
+    flex: 1;
+  }
+}
